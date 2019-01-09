@@ -1,0 +1,63 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>	
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link rel="stylesheet" type="text/css" href="css/addpic.css">
+  	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+</head>
+<body>
+	
+<!-- The four columns -->
+	<nav class="navbar navbar-default">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <a class="navbar-brand">NTU Airobo</a></div>
+	      	<ul class="nav navbar-nav">
+		      	<li class="active"><a href="">Home</a></li>
+			    <li><a href="#"><i class="material-icons" style="font-size:36px;">cloud</i></a></li>
+			    <li><a href="#"><i class="material-icons" style="font-size:36px;">camera</i></a></li>
+			    <li><a href="#"><i class="material-icons" style="font-size:36px;">photo</i></a></li>
+	    	</ul>
+	    </div>	
+	  </div>
+	</nav>
+	
+	<h1>Basic Autobiography Example</h1>
+	<p>How to do the Autobiography within the responsive website.</p>
+
+
+<div class="row">	
+  <div class="column">
+    <img src="{% static 'image/6.jpg' %}" alt="Nature" style="width:90%" onclick="myFunction(this);">
+  </div>
+  <div class="column">
+    <img src="{% static 'image/3.jpg' %}" alt="Snow" style="width:90%" onclick="myFunction(this);">
+  </div>
+  <div class="column">
+    <img src="{% static 'image/7.jpg' %}" alt="Mountains" style="width:90%" onclick="myFunction(this);">
+  </div>
+  <div class="column">
+    <img src="{% static 'image/5.jpg' %}" alt="Lights" style="width:90%" onclick="myFunction(this);">
+  </div>
+</div>
+
+<div class="container">
+  <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
+  <img id="expandedImg" style="width:100%">
+  <div id="imgtext"></div>
+</div>
+
+<script>
+function myFunction(imgs) {
+    var expandImg = document.getElementById("expandedImg");
+    var imgText = document.getElementById("imgtext");
+    expandImg.src = imgs.src;
+    imgText.innerHTML = imgs.alt;
+    expandImg.parentElement.style.display = "block";
+}
+</script>
+
+</body>
+</html>

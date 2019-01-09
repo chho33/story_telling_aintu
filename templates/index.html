@@ -1,0 +1,58 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>StoryTelling Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/lightbox.min.css' %}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="{% static 'js/lightbox-plus-jquery.min.js' %}"></script>
+  
+</head>
+
+<body>
+	<!-- Navigation Bar -->
+	<nav class="navbar navbar-default">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <a class="navbar-brand">NTU Airobo</a>
+	      	<ul class="nav navbar-nav">
+		      	<li class="active"><a href="">Home</a></li>
+				<li><a href="#"><i class="material-icons" style="font-size:36px;">photo</i></a></li>				
+	    	</ul>
+	    </div>	
+	    </div>	
+	  
+	</nav>
+
+	<!-- Navigation Bar -->
+
+	<!-- Text -->
+	<div class="container">
+  		<h1>Basic Autobiography Example</h1>
+  		<p>Gallery Slides</p>
+	</div>
+	<!-- Text -->
+
+	<!-- Image  -->
+	<div class="gallery">		
+		<a href="{% static 'image/5.jpg' %}" data-lightbox="mygallery"><img src="{% static 'image/5.jpg' %}"></a>
+		<a href="{% static 'image/6.jpg' %}" data-lightbox="mygallery"><img src="{% static 'image/6.jpg' %}"></a>
+		<a href="{% static 'image/7.jpg' %}" data-lightbox="mygallery"><img src="{% static 'image/7.jpg' %}"></a>
+		<a href="{% static 'image/8.jpg' %}" data-lightbox="mygallery"><img src="{% static 'image/8.jpg' %}"></a>
+		<a href="{% static 'image/9.jpg' %}" data-lightbox="mygallery"><img src="{% static 'image/9.jpg' %}"></a>
+		<a href="{% static 'image/11.jpg' %}" data-lightbox="mygallery"><img src="{% static 'image/11.jpg' %}"></a>		
+	</div>
+	<!-- Image  -->
+
+	<div class="dflip">	
+		<h1>What is D-Flip?</h3>
+  		<p>Dynamic & Flexible Interactive PhotoShow</p>	
+  		<!-- <a href="image/dflip.gif" data-lightbox="mygallery"><img src="image/dflip.gif" >  	 -->
+	</div>  			
+</html>
