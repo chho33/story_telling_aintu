@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.http import HttpResponse,JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 from project.settings import MEDIA_ROOT,STATICFILES_DIRS 
 from PIL import Image
@@ -25,6 +26,7 @@ def edit(request):
 def save_audio():
     pass
 
+@csrf_exempt
 def find_images(request):
     data = request.FILES['audio_data'] 
     #data:  <class 'django.core.files.uploadedfile.InMemoryUploadedFile'>
