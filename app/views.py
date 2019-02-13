@@ -38,7 +38,8 @@ def find_images(request):
     r = sr.Recognizer()
     with sr.AudioFile(audio_tmp_path) as source:
         audio = r.record(source)
-    result = r.recognize_google(audio,language='zh-tw')
+    #result = r.recognize_google(audio,language='zh-tw')
+    result = r.recognize_google(audio,language='en-US')
     tags = extract_places(result)
 
     #save audio to DB
