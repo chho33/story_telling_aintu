@@ -11,6 +11,7 @@ audiofield/models.py
 audiofield/tasks.py
 audiofield/tests.py
 audiofield/widgets.py
+audiofield/__pycache__/__init__.cpython-35.pyc
 audiofield/__pycache__/__init__.cpython-36.pyc
 audiofield/locale/en/LC_MESSAGES/django.mo
 audiofield/locale/en/LC_MESSAGES/django.po
