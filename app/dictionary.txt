@@ -338,3 +338,7 @@ E=MC2 999 ns
 興旺公園 999 ns
 至德園公園 999 ns
 台大 999 ns
+Yamagata 999 ns
+Sendai 999 ns
+Osaka 999 ns
+Fujiyama 999 ns

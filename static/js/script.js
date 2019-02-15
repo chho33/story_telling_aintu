@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded",function(){
 
 		var saveButton = document.getElementById('save');
 
-		// Save the Image that we Eddited
+		// Save the Image that we Edited
 		function saveButtonHandler(event){
 			Caman('#image',function(){
 				this.render(function(){		
@@ -95,5 +95,3 @@ document.addEventListener("DOMContentLoaded",function(){
 		submitText.onclick= applyText;
 
 },false);
-
-

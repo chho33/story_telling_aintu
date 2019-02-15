@@ -37,10 +37,26 @@ var recordButton = document.getElementById("recordButton");
 var stopButton = document.getElementById("stopButton");
 var pauseButton = document.getElementById("pauseButton");
 
+//2019.2.7 Editting
+var recordStoryButton = document.getElementById("recordStoryButton");
+var stopStoryButton = document.getElementById("stopStoryButton");
+var pauseStoryButton = document.getElementById("pauseStoryButton");
+
+
+
 //add events to those 2 buttons
 recordButton.addEventListener("click", startRecording);
 stopButton.addEventListener("click", stopRecording);
 pauseButton.addEventListener("click", pauseRecording);
+
+//2019.2.7 Editting
+recordStoryButton.addEventListener("click",startStoryRecording);
+stopStoryButton.addEventListener("click",stopStoryRecording);
+pauseStoryButton.addEventListener("click",pauseStoryRecording);
+
+
+
+
 
 function startRecording() {
 	console.log("recordButton clicked");
@@ -170,7 +186,7 @@ function createDownloadLink(blob) {
     var csrftoken = getCookie('csrftoken');
 	var upload = document.createElement('a');
 	upload.href="#";
-	upload.innerHTML = "找圖片";
+	upload.innerHTML = "FindPictures";
 	upload.addEventListener("click", function(event){
 		  var xhr=new XMLHttpRequest();
 		  xhr.onload=function(e) {
@@ -306,4 +322,170 @@ function base64ArrayBuffer(arrayBuffer) {
   }
 
   return base64
+}
+
+
+function startStoryRecording() {
+	console.log("recordStoryButton clicked");
+
+	/*
+		Simple constraints object, for more advanced audio features see
+		https://addpipe.com/blog/audio-constraints-getusermedia/
+	*/
+    
+    var constraints = { audio: true, video:false }
+
+ 	/*
+    	Disable the record button until we get a success or fail from getUserMedia() 
+	*/
+
+	recordStoryButton.disabled = true;
+	stopStoryButton.disabled = false;
+	pauseStoryButton.disabled = false
+
+	/*
+    	We're using the standard promise based getUserMedia() 
+    	https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
+	*/
+
+	navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+		console.log("getUserMedia() success, stream created, initializing Recorder.js ...");
+
+		/*
+			create an audio context after getUserMedia is called
+			sampleRate might change after getUserMedia is called, like it does on macOS when recording through AirPods
+			the sampleRate defaults to the one set in your OS for your playback device
+		*/
+		audioContext = new AudioContext();
+
+		//update the format 
+		document.getElementById("formats").innerHTML="Format: 1 channel pcm @ "+audioContext.sampleRate/1000+"kHz"
+
+		/*  assign to gumStream for later use  */
+		gumStream = stream;
+		
+		/* use the stream */
+		input = audioContext.createMediaStreamSource(stream);
+
+		/* 
+			Create the Recorder object and configure to record mono sound (1 channel)
+			Recording 2 channels  will double the file size
+		*/
+		rec = new Recorder(input,{numChannels:1})
+
+		//start the recording process
+		rec.record()
+
+		console.log("StoryRecording started");
+
+	}).catch(function(err) {
+	  	//enable the record button if getUserMedia() fails
+    	recordStoryButton.disabled = false;
+    	stopStoryButton.disabled = true;
+    	pauseStoryButton.disabled = true
+	});
+}
+
+function pauseStoryRecording(){
+	console.log("pauseStoryButton clicked rec.recording=",rec.recording );
+	if (rec.recording){
+		//pause
+		rec.stop();
+		pauseStoryButton.innerHTML="Resume";
+	}else{
+		//resume
+		rec.record()
+		pauseStoryButton.innerHTML="Pause";
+
+	}
+}
+
+function stopStoryRecording() {
+	console.log("stopStoryButton clicked");
+
+	//disable the stop button, enable the record too allow for new recordings
+	stopStoryButton.disabled = true;
+	recordStoryButton.disabled = false;
+	pauseStoryButton.disabled = true;
+
+	//reset button just in case the recording is stopped while paused
+	pauseStoryButton.innerHTML="Pause";
+	
+	//tell the recorder to stop the recording
+	rec.stop();
+
+	//stop microphone access
+	gumStream.getAudioTracks()[0].stop();
+
+	//create the wav blob and pass it on to createDownloadLink
+	rec.exportWAV(createDownloadStoryLink);
+}
+
+function createDownloadStoryLink(blob) {
+	
+	var url = URL.createObjectURL(blob);
+	var au = document.createElement('audio');
+	var li = document.createElement('li');
+	var link = document.createElement('a');
+
+	//name of .wav file to use during upload and download (without extendion)
+	var filename = new Date().toISOString();
+
+	//add controls to the <audio> element
+	au.controls = true;
+	au.src = url;
+
+	//save to disk link
+	link.href = url;
+	link.download = filename+".wav"; //download forces the browser to donwload the file using the  filename
+	link.innerHTML = "Save Story";
+
+	//add the new audio element to li
+	li.appendChild(au);
+	
+	//add the filename to the li
+	li.appendChild(document.createTextNode(filename+".wav "))
+
+	//add the save to disk link to li
+	li.appendChild(link);
+	
+	//upload link
+    var csrftoken = getCookie('csrftoken');
+	var upload = document.createElement('a');
+	upload.href="#";
+	//upload.innerHTML = "Download";
+	upload.addEventListener("click", function(event){
+		  var xhr=new XMLHttpRequest();
+		  xhr.onload=function(e) {
+		      if(this.readyState === 4) {
+		          console.log("Server returned: ",e.target.responseText);
+		      }
+		  };
+		  var fd=new FormData();
+		  fd.append("audio_data",blob, filename);
+		  xhr.open("POST","/upload",true);
+;
+          xhr.setRequestHeader("X-CSRFToken", csrftoken);
+		  xhr.send(fd);
+          xhr.responseType = 'arraybuffer';
+          xhr.onreadystatechange = function(e) {
+            if (xhr.readyState === 4) {
+                if ((xhr.status == 200) || (xhr.status == 0)) {
+                  image.src = "data:image/png;base64,"+base64ArrayBuffer(e.currentTarget.response)
+                } else {
+                    alert("Something misconfiguration : " + 
+                        "\nError Code : " + xhr.status + 
+                        "\nError Message : " + xhr.responseText);
+                }
+            }
+          }
+	})
+	li.appendChild(document.createTextNode (" "))//add a space in between
+	li.appendChild(upload)//add the upload link to li
+
+	//add the li element to the ol
+	recordingsList.appendChild(li);
+    
+    //delete this record
+
 }

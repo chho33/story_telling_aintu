@@ -12,10 +12,11 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="{% static 'js/lightbox-plus-jquery.min.js' %}"></script>
-  
+  <script type="text/javascript" src="{% static 'js/play_audiofile.js' %}"></script>
 </head>
 
 <body>
+	<span id="dummy"></span>
 	<!-- Navigation Bar -->
 	<nav class="navbar navbar-default">
 	  <div class="container-fluid">
@@ -23,36 +24,71 @@
 	      <a class="navbar-brand">NTU Airobo</a>
 	      	<ul class="nav navbar-nav">
 		      	<li class="active"><a href="">Home</a></li>
-				<li><a href="#"><i class="material-icons" style="font-size:36px;">photo</i></a></li>				
+				<li><a href="edit"><i class="material-icons" style="font-size:36px;">photo</i></a></li>
 	    	</ul>
-	    </div>	
-	    </div>	
-	  
+	    </div>
+	</div>		
 	</nav>
 
 	<!-- Navigation Bar -->
 
 	<!-- Text -->
 	<div class="container">
-  		<h1>Basic Autobiography Example</h1>
-  		<p>Gallery Slides</p>
+  		<h1>I-Path & D-Flip</h1>
+  		<p>How to preserve your memory and wisdom?</p>
 	</div>
 	<!-- Text -->
 
 	<!-- Image  -->
-	<div class="gallery">		
-		<a href="{% static 'image/5.jpg' %}" data-lightbox="mygallery"><img src="{% static 'image/5.jpg' %}"></a>
-		<a href="{% static 'image/6.jpg' %}" data-lightbox="mygallery"><img src="{% static 'image/6.jpg' %}"></a>
+	<div class="gallery">
+			
+		<a href="{% static 'image/5.jpg' %}" data-lightbox="mygallery"><img id='audio_a' src="{% static 'image/5.jpg' %}" onclick="playAudio('audio_a')"></a>
+		<a href="{% static 'image/6.jpg' %}" data-lightbox="mygallery"><img id = 'b' src="{% static 'image/6.jpg' %}"></a>
 		<a href="{% static 'image/7.jpg' %}" data-lightbox="mygallery"><img src="{% static 'image/7.jpg' %}"></a>
 		<a href="{% static 'image/8.jpg' %}" data-lightbox="mygallery"><img src="{% static 'image/8.jpg' %}"></a>
 		<a href="{% static 'image/9.jpg' %}" data-lightbox="mygallery"><img src="{% static 'image/9.jpg' %}"></a>
 		<a href="{% static 'image/11.jpg' %}" data-lightbox="mygallery"><img src="{% static 'image/11.jpg' %}"></a>		
+	</div>	
+		<!-- <button onclick="playAudio(1)" type="button">Play Audio1</button>
+		<button onclick="pauseAudio(1)" type="button">Pause Audio1</button>
+		<button onclick="playAudio(2)" type="button">Play Audio2</button>
+		<button onclick="pauseAudio(2)" type="button">Pause Audio2</button> -->
+
 	</div>
 	<!-- Image  -->
+	<audio id="myAudio">
+		<source src="{% static 'sound/audio_1.mp3' %}" type="audio/mpeg">
+	</audio>
+	<audio id="audio_a">
+			<source src="{% static 'sound/audio_2.mp3' %}" type="audio/mpeg">
+		</audio>
 
 	<div class="dflip">	
-		<h1>What is D-Flip?</h3>
-  		<p>Dynamic & Flexible Interactive PhotoShow</p>	
+		<h1>D-Flip</h1>
+		  <h4>Dynamic & Flexible Interactive PhotoShow</h4>			
+	</div>
+	<div class="center">
+		<img src="{% static 'image/dflip.png' %}"></img>
+	</div>		
+	<div class="dflip">
+		<h1>I-Path </h1>
+		<!-- <h4>With I-Path, we can: <br> -->
+			<h4>Record your life and stories by yourself easily.</h4>
+			<h4> Train your expression ability preventing cognitive degeneration<br></h4>
+			<h4> Visualize and digitalize knowledge/experience making it timeless<br></h4>
+			<!-- Images and psychological guided questions help you describe your stories.<br>
+			Visual feedback from D-flip interactive system makes storytelling fun and motivated.<br> 
+			With i-path, saving your every piece of story is no longer hard to get started!</h4>  	 -->
   		<!-- <a href="image/dflip.gif" data-lightbox="mygallery"><img src="image/dflip.gif" >  	 -->
-	</div>  			
+	</div> 
+	<!-- <script>
+		var x = document.getElementById(audioid="myAudio"); 
+		var y = document.getElementById(audioid="audio_a"); 
+		function playAudio(audioid) { 
+			x.play(); 
+		} 
+		function pauseAudio() { 
+			x.pause(); 
+		} 
+	</script> 			 -->
 </html>

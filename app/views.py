@@ -40,6 +40,7 @@ def find_images(request):
         audio = r.record(source)
     #result = r.recognize_google(audio,language='zh-tw')
     result = r.recognize_google(audio,language='en-US')
+    print('result: ',result)
     tags = extract_places(result)
 
     #save audio to DB

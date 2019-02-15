@@ -13,15 +13,16 @@
         <div id="controls">
             <button id="recordButton">Record</button>
             <button id="pauseButton" disabled>Pause</button>
-            <button id="stopButton" disabled>Stop</button>
-            <!--<audio id="player" controls></audio>-->
+			<button id="stopButton" disabled>Stop</button>
+			<button id="recordStoryButton" >Record Story</button>
+			<button id="pauseStoryButton" disabled>Pause Recording Story</button>
+			<button id="stopStoryButton" disabled>Stop Recording Story</button>
         </div>
         <div id="formats">Format: start recording to see sample rate</div>
-        <h3>Recordings</h3>
+		<h3>Recordings</h3>		
   	    <ol id="recordingsList"></ol>
 		<div class="editor">
 			<div class="tools">
-
 				<button id="save">Save</button>
 				<button id="reset">Reset</button>
 				<input type="file" id="load"/>		
@@ -71,4 +72,3 @@
   	<script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
 	</body>
 </html>
-
